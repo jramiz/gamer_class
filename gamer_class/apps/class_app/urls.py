@@ -10,5 +10,5 @@ urlpatterns = [
     # Internal facing routes
     url(r'^register_user$', views.register_user),
     url(r'^login_user$', views.login_user),
-    url(r'^add_game$', views.process_new_game),
+    url(r'^process_new_game$', views.process_new_game),
 ]

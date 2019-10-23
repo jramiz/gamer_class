@@ -29,12 +29,12 @@ def login_user(request):
 
 def dashboard(request):
     user = User.objects.get(id = request.session['user_id'])
-    ganes = Game.objects.all()
+    games = Game.objects.all()
     context = {
         "user" : user,
         "games" : games,
     }
-    return render(request, 'class_app/dashboard.html')
+    return render(request, 'class_app/dashboard.html', context)
 
 def process_new_game(request):
     user = User.objects.get(id = request.session['user_id'])
