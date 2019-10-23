@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamer Class</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-mtS696VnV9qeIoC8w/PrPoRzJ5gwydRVn0oQ9b+RJOPxE1Z1jXuuJcyeNxvNZhdx" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'class_app/css/dashboard_style.css' %}">    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    
+    
+    
+    
+    
+    </script>
+
+  <title>Gamer Class Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+                <h1 class="display-4">Welcome {{user.user_name}}!</h1>
+                <p class="lead">Let the games begin!</p>
+        </div>
+        <hr>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+            <a class="nav-link" href="#">Update Class</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Go to Hot</a>
+            </li>
+        </ul>
+        <div class = "row">
+            <div class = "column">
+            <div id = "twitch-box">
+                <h1>Twitch Gaming Stream</h1>
+
+            </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div id = "myGames-box">
+                <h5>All Games:</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for g in games %}
+                    <tr>
+                    <td>{{ g.name }}</td>
+                    <td>{{ g.desc }}</td>
+                    <td><a href="#">Add</a>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class = "row">
+                <h1>Add Game</h1>
+                <form action="/process_new_game" id= "new-game" method="POST">
+                    {% csrf_token %}
+                    <label for="game_name">Name</label>
+                    <input class="form-control" type="text" placeholder="Enter first name" name="name">
+
+                    <label for="game_description">Description</label>
+                    <input class="form-control" type="text" placeholder="only 255 chars " name="desc">
+
+                    <button type="submit" class="btn btn-secondary">Add Game</button>
+                </form>
+
+        </div>
+        
+
+
+
+
+
+    </div>
+</body>
+</html>

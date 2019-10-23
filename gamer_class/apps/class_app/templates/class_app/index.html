@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamer Class</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-mtS696VnV9qeIoC8w/PrPoRzJ5gwydRVn0oQ9b+RJOPxE1Z1jXuuJcyeNxvNZhdx" crossorigin="anonymous">
+
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-mtS696VnV9qeIoC8w/PrPoRzJ5gwydRVn0oQ9b+RJOPxE1Z1jXuuJcyeNxvNZhdx" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('#register-box').hide();
+      $('#login-box').hide();
+
+      $('#reg').click(function(){
+        $('#login-box').slideUp();
+        $('#register-box').slideDown();
+      })
+
+      $('#log').click(function(){
+        $('#register-box').slideUp();
+        $('#login-box').slideDown();
+      })
+    });
+  
+  </script>
+  <title>Welcome to Gamer Class</title>
+</head>
+<body>
+  <div class = "container">
+    <div class="jumbotron jumbotron-fluid">
+          <h1 class="display-4">Gamer Class</h1>
+          <p class="lead">A place for players to improve their game.</p>
+    </div>
+    <hr>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="btn btn-secondary nav-link" id="reg">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn btn-secondary" id="log">Login</a>
+      </li>
+    </ul>
+    {% if messages %}
+    <ul class="messages"> 
+        {% for message in messages %}
+        <li class="list-group-item list-group-item-danger" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+      <div id = 'register-box'>
+          <form action="/register_user" method="POST">
+            {% csrf_token %}
+            <label for="first_name">User_name</label>
+            <input class="form-control" type="text" placeholder="at least 8 chars" name="user_name">
+
+            <label for="email">Email</label>
+            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="email address" name="email">
+
+            <label for="password">Password</label>
+            <input type="password" class="form-control" placeholder="at least 8 chars" name="password">
+
+            <label for="password">Confirm Password</label>
+            <input type="password" class="form-control" placeholder="confirm password" name="c_password">
+
+            <button type="submit" class="btn btn-secondary mt-5">Go</button>
+        </form>
+
+      </div>  <!-- end of reg div  -->
+
+      <div id = 'login-box'>
+          {% if messages %}
+          <ul class="messages"> 
+              {% for message in messages %}
+              <li class="list-group-item list-group-item-danger" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+          <form action="/login_user" method="POST">
+            {% csrf_token %}
+            <label for="email">Email</label>
+            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="email address" name="email">
+
+            <label for="password">Password</label>
+            <input type="password" class="form-control" placeholder="at least 8 chars" name="password">
+            <button type="submit" class="btn btn-secondary mt-5">Go</button>
+        </form>
+
+      </div><!-- end of login div  -->
+
+
+    </div>
+  </div>  
+</body>
+</html>
