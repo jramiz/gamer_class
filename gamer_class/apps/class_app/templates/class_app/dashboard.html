@@ -53,7 +53,7 @@
                     <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Created By</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,7 +61,7 @@
                     <tr>
                     <td>{{ g.name }}</td>
                     <td>{{ g.desc }}</td>
-                    <td><a href="#">Add</a>
+                    <td>{{g.created_by.user_name}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
