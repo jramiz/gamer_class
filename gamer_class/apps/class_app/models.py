@@ -42,6 +42,8 @@ class User(models.Model):
     objects = UserManager() 
     # games_added - related to Game
     # gamer_classes - related to Gamer
+    # messages - related to Message
+    # comments - related to Comment
 
 class Game(models.Model):
     name = models.TextField()
@@ -59,5 +61,18 @@ class Gamer(models.Model):
     style = models.TextField()
     gamer_class = models.TextField()
 
+class Message(models.Model):
+    message = models.TextField()
+    user = models.ForeignKey(User, related_name="messages")
+    image = models.ImageField(upload_to="", blank=True, null=True, default = "settings.MEDIA_ROOT/default_image.png")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # comments - related to comment class
 
+class Comment(models.Model):
+    comment = models.TextField()
+    message = models.ForeignKey(Message, related_name="comments")
+    user = models.ForeignKey(User, related_name="comments")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 

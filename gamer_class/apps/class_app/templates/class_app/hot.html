@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamer Class</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-mtS696VnV9qeIoC8w/PrPoRzJ5gwydRVn0oQ9b+RJOPxE1Z1jXuuJcyeNxvNZhdx" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'class_app/css/style.css' %}">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+
+    // // You could also put this code in another JavaScript file... Remember to user $(document).ready() if the script tag is included before the DOM nodes you care about...
+    // $('form').submit(function(e){
+    //   // preventDefault stops the default action of the event (e) from being triggered.
+    //   e.preventDefault();
+    //   console.log("Form submitted but no HTTP request sent to server!");
+    // });
+    
+    </script>
+
+  <title>Gamer Class Dashboard</title>
+</head>
+<body>
+    <div class = "container">
+            <div class="jumbotron jumbotron-fluid">
+                <img id = "logo" src="{% static 'class_app/images/LOGO.svg' %}" />
+                <h1 class="display-4">Welcome {{ user.user_name }}!</h1>
+                <p class="lead">Share your experiences with other players from around the world!</p>
+            </div>
+        <hr>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                <a class="nav-link" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/class_list">Class</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/schedule">Schedule</a>
+                </li>
+            </ul>
+            <!-- pon el código AJAX -->
+            <div class = "message">
+                <p>Post a Message</p>
+                <!-- insert enctype here for image -->
+                <form action="/post_message" enctype="multipart/form-data" method="POST"> 
+                    {% csrf_token %}
+                    <textarea type='text' class=
+                    'text-primary' name="message" cols='50'rows="5"></textarea>
+                    <input type="file" name='image'>
+                    <button class="btn btn-light post" type="submit">POST</button>
+                </form>
+            </div>
+            <div class = "display_message"> 
+                {% for m in messages %}
+                <img class="mr-3" src="{{ m.image.url }}" alt="User Image">
+                <h8>{{ m.message }}</h8>
+                <a class="btn btn-light btn-sm delete" href="/delete_message/{{m.id}}" type="button">DELETE</a>
+                    <p>{{user.user_name}} posted on {{m.created_at}}</p>
+                    
+                <div class="message_comment">
+                    <p>Comments</p>
+
+                    <div class="display_comment">
+                        {% for c in m.comments.all %}
+                            <h6>{{ c.comment }}</h6>
+                            <a class="btn btn-light btn-sm delete" href="/delete_comment/{{c.id}}" type="button">DELETE</a>
+                            <p>{{ user.user_name }} posted on {{ c.created_at }}</p>
+                        {% endfor %}
+                    <form action="/post_comment" method="POST">
+                        {% csrf_token %}
+                        <textarea name="comment" cols='50'rows="8"></textarea>
+                        <input type="hidden" name="message_id" value="{{m.id}}">
+                        <button class="btn btn-light post" type="submit">COMMENT</button>
+                    </form>
+                    
+                    </div>
+                {% endfor %}
+            </div>
+            </div>
+
+
+        <!-- End of Container -->
+    </div>
+</body>
+</html>
