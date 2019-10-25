@@ -9,6 +9,8 @@ IMAGE_REGEX = re.compile(r'^([/|.|\w|\s|-])*.(?:jpg|jpeg|gif|png)')
 def index(request):
     return render(request, 'class_app/index.html')
 
+
+
 def register_user(request):
     error = User.objects.validate_registration(request.POST)
     if len(error):
