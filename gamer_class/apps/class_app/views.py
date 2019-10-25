@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
 import re
+import requests
 
 IMAGE_REGEX = re.compile(r'^([/|.|\w|\s|-])*.(?:jpg|jpeg|gif|png)')
 
@@ -33,16 +34,57 @@ def login_user(request):
 def dashboard(request):
     user = User.objects.get(id = request.session['user_id'])
     games = Game.objects.all()
+    response = requests.get(
+        "https://api.twitch.tv/helix/games/top",
+        headers={'Client-ID' : 'ipk8wqttgufo564habbqdvfmp3a8f6'},
+    )
+    json_response = response.json()
+    for t in json_response['data']:
+        t['box_art_url'] = t['box_art_url'].replace('{width}', '150').replace('{height}', '150')
     context = {
         "user" : user,
         "games" : games,
+        "twitch_data" : json_response,
     }
+    print(json_response)
     return render(request, 'class_app/dashboard.html', context)
 
 def process_new_game(request):
     user = User.objects.get(id = request.session['user_id'])
     game = Game.objects.create(name=request.POST['name'], desc = request.POST['desc'], created_by = user)
     return redirect('/dashboard')
+
+def process_new_class(request):
+    user = User.objects.get(id = request.session['user_id'])
+    gamer = Gamer.objects.create(
+        user = user,
+        game=Game.objects.get(id=request.POST['game']), 
+        level=request.POST['level'], 
+        income=request.POST['income'], 
+        style=request.POST['style'], 
+        gamer_class=request.POST['gamer_class']
+    )
+    return redirect('/class_list')
+
+def edit_class(request):
+    # get the game and user ids from hidden input in post request and store in variables
+    print(request.POST)
+    rev_gamer = Gamer.objects.get(id= request.POST['gamer_id'])
+    # rev_gamer.user = request.POST['user_id']
+    if (request.session['user_id'] != rev_gamer.user.id):
+        return redirect("/dashboard")
+    # rev_gamer.game = request.POST['game_id']
+    rev_gamer.level = request.POST['level']
+    rev_gamer.income = request.POST['income']
+    rev_gamer.style = request.POST['style']
+    rev_gamer.gamer_class = request.POST['gamer_class']
+    rev_gamer.save()
+    return redirect("/class_list")
+
+def delete(request, gamer_id):
+    deleted_gamer = Game.objects.get(id='gamer_id')
+    deleted_gamer.delete()
+    return redirect ("/class_list")
 
 def post_message(request):
     if request.method == "POST":
@@ -88,9 +130,10 @@ def delete_comment(request, id):
     return redirect('/hot')
 
 def class_list(request):
-    user = Gamer.user.get(id = request.session['user_id']),
+    user = User.objects.get(id = request.session['user_id'])
+
     context = {
-        "gamer" : Gamer.objects.get(user = user)
+        "user" : user
     }
     return render(request, 'class_app/class.html', context)
 
@@ -102,3 +145,8 @@ def schedule(request):
         "other_users" : other_users
     }
     return render(request, "class_app/schedule.html", context)
+
+def logout(request):
+    request.session.clear()
+    return redirect('/')
+

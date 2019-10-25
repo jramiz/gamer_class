@@ -12,16 +12,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script>
-
-    // // You could also put this code in another JavaScript file... Remember to user $(document).ready() if the script tag is included before the DOM nodes you care about...
-    // $('form').submit(function(e){
-    //   // preventDefault stops the default action of the event (e) from being triggered.
-    //   e.preventDefault();
-    //   console.log("Form submitted but no HTTP request sent to server!");
-    // });
-    
-    </script>
 
   <title>Schedule Games</title>
 </head>
@@ -29,21 +19,43 @@
   <div class = "container">
       <div class="jumbotron jumbotron-fluid">
           <img id = "logo" src="{% static 'class_app/images/LOGO.svg' %}" />
-          <p class="display-4">Welcome {{ user.user_name }}!</p>
-          <p class="lead">Schedule Gaming Sessions with other Gamers of Gamer Class!</p>
+          <h1 class="display-4">Welcome {{ user.user_name }}!</h1>
+          <p class="lead">Schedule games with other players from around the world!</p>
       </div>
-  <hr>
       <ul class="nav justify-content-end">
           <li class="nav-item">
-          <a class="nav-link" href="/dashboard">Dashboard</a>
+          <a class="btn btn-outline-primary" href="/dashboard">Dashboard</a>
           </li>
           <li class="nav-item">
-          <a class="nav-link" href="/class_list">Class</a>
+          <a class="btn btn-outline-primary" href="/class_list">Class</a>
           </li>
           <li class="nav-item">
-          <a class="nav-link" href="/hot">Hot</a>
+          <a class="btn btn-outline-primary" href="/hot">Hot</a>
+          </li>
+          <li class="nav-item">
+          <a class="btn btn-outline-primary" href="/logout">Logout</a>
           </li>
       </ul>
+  <hr>
+      <!-- <div class = 'user_list'>
+        <ul>
+          {% for u in other_users %}
+          <a href='#'>{{ u.user_name }}</a>
+          {% endfor %}
+        </ul>
+      </div>
+  </div> -->
+  <div class = "row">
+      <div class = "column">
+          <div id = "user_list" class = 'row'>
+              {% for u in other_users %}
+              <div class = 'col'>
+              <a href='#' id="twitch_name">{{ u.user_name }}</a>
+              </div>
+              {% endfor %}
+          </div>
+      </div>
   </div>
+
 </body>
 </html>

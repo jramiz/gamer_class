@@ -19,12 +19,12 @@
 
       $('#reg').click(function(){
         $('#login-box').slideUp();
-        $('#register-box').slideDown();
+        $('#register-box').slideDown(800);
       })
 
       $('#log').click(function(){
         $('#register-box').slideUp();
-        $('#login-box').slideDown();
+        $('#login-box').slideDown(800);
       })
     });
   
@@ -35,15 +35,15 @@
   <div class = "container">
     <div class="jumbotron jumbotron-fluid">
           <img id = "logo" src="{% static 'class_app/images/LOGO.svg' %}" />
-          <p class="lead">A place for players to improve their game.</p>
+          <p class="lead mt-5">A place for players to improve their game.</p>
     </div>
   <hr>
     <ul class="nav justify-content-end">
       <li class="nav-item">
-        <a class="btn btn-secondary nav-link" id="reg">Register</a>
+        <button type="button" class="btn btn-outline-primary" id="reg">Register</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link btn btn-secondary" id="log">Login</a>
+        <button type="button" class="btn btn-outline-primary" id="log">Login</button>
       </li>
     </ul>
     {% if messages %}
@@ -68,7 +68,7 @@
             <label for="password">Confirm Password</label>
             <input type="password" class="form-control" placeholder="confirm password" name="c_password">
 
-            <button type="submit" class="btn btn-secondary mt-5">Go</button>
+            <button type="submit" class="btn btn-secondary mt-1">Go</button>
         </form>
 
       </div>  <!-- end of reg div  -->
@@ -88,7 +88,7 @@
 
             <label for="password">Password</label>
             <input type="password" class="form-control" placeholder="at least 8 chars" name="password">
-            <button type="submit" class="btn btn-secondary mt-5">Go</button>
+            <button type="submit" class="btn btn-secondary mt-1">Go</button>
         </form>
 
       </div><!-- end of login div  -->

@@ -1,83 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gamer Class</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-mtS696VnV9qeIoC8w/PrPoRzJ5gwydRVn0oQ9b+RJOPxE1Z1jXuuJcyeNxvNZhdx" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamer Class</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-mtS696VnV9qeIoC8w/PrPoRzJ5gwydRVn0oQ9b+RJOPxE1Z1jXuuJcyeNxvNZhdx" crossorigin="anonymous">
     {% load static %}
     <link rel="stylesheet" href="{% static 'class_app/css/style.css' %}">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
 
-    // // You could also put this code in another JavaScript file... Remember to user $(document).ready() if the script tag is included before the DOM nodes you care about...
-    // $('form').submit(function(e){
-    //   // preventDefault stops the default action of the event (e) from being triggered.
-    //   e.preventDefault();
-    //   console.log("Form submitted but no HTTP request sent to server!");
-    // });
-    
+        $(document).ready(function () {
+            $('.edit_class').hide();
+
+            $('.edit').click(function (event) {
+                event.preventDefault();
+                var gamer_id = $(this).attr('gamer_id');
+                $('.edit_class').hide();
+                $('#edit_class'+gamer_id).slideDown();
+
+            })
+        });
+
     </script>
 
-  <title>Your Gamer Class</title>
+    <title>Your Gamer Class</title>
 </head>
+
 <body>
-    <div class = "container">
-            <div class="jumbotron jumbotron-fluid">
-                <img id = "logo" src="{% static 'class_app/images/LOGO.svg' %}" />
-                <p class="display-4">Welcome {{ user.user_name }}!<p>
-                <p class="lead">Your Gamer Class Details!</p>
-            </div>
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+            <img id = "logo" src="{% static 'class_app/images/LOGO.svg' %}" />
+            <h1 class="display-4">Welcome {{ user.user_name }}!</h1>
+            <p class="lead">View and upate your Gamer Class for each game you play!</p>
+        </div>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                <a class="btn btn-outline-primary" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                <a class="btn btn-outline-primary" href="/hot">Hot</a>
+                </li>
+                <li class="nav-item">
+                <a class="btn btn-outline-primary" href="/schedule">Schedule</a>
+                </li>
+                <li class="nav-item">
+                <a class="btn btn-outline-primary" href="/logout">Logout</a>
+                </li>
+            </ul>
     <hr>
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-            <a class="nav-link" href="/dashboard">Dashboard</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/hot">Hot</a>
-            </li>
-        </ul>
         <div class="row">
             <table class="table table-striped table-dark">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                        <th scope="col">Game</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Income</th>
+                        <th scope="col">Style</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for g in user.gamer_classes.all %}
                     <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                        <th class="text-danger" scope="row">{{ g.game.name }}</th>
+                        <td class="text-primary">{{ g.level }}</td>
+                        <td class="text-primary">{{ g.income }}</td>
+                        <td class="text-primary">{{ g.style }}</td>
+                        <td class="text-primary">{{ g.gamer_class}}</td>
+                        <td><a class="text-primary edit" id="edit_class" gamer_id="{{g.id}}" href="#">Edit</a> / <a class="text-primary delete" href="/class/delete/{{g.id}}">Delete</a></td>
                     </tr>
-                    <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
 
         </div>
         <div class="row">
+            {% for g in user.gamer_classes.all %}
+            <div id='edit_class{{g.id}}' class="edit_class">
+                <h5>Edit Class</h5>
+                <form action="/edit_class" id="new-game" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{user.id}}">
+                    <input id="gamer_id" type="hidden" name="gamer_id" value="{{ g.id }}">
 
+                    <label for="game_description">Level</label>
+                    <input class="form-control" type="text" placeholder="enter number" name="level" value="{{ g.level }}">
 
+                    <label for="game">Income</label>
+                    <input class="form-control" type="text" placeholder="Enter income" name="income" value="{{ g.income }}">
+
+                    <label for="game_description">Style</label>
+                    <input class="form-control" type="text" placeholder="how often do you help other?" name="style" value="{{ g.style }}">
+
+                    <label for="game_description">Class</label>
+                    <input class="form-control" type="text" placeholder="Enter: Noob, Modest, Skilled as your class"
+                        name="gamer_class" value="{{ g.gamer_class}}">
+
+                    <button type="submit" class="btn btn-secondary" id="edit">Revise</button>
+                </form>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </body>
+
 </html>

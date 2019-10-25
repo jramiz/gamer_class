@@ -1,24 +1,54 @@
-*
-{
-    font-size: 1em;
-    color: #FFF;
-    font-family: Roboto;
-    font-style: normal;
-    font-size: 16px;
-    line-height: 20px;
+.jumbotron {
+    width: 100%;
+    max-height: 300px;
+    padding:25px;
 }
-#twitch-box {
-    width: 600px;
-    height: 312px;
-    left: 169px;
-    top: 300px;
+#logo {
+    width: 300px;
+    padding: 25px;
+    margin-top: 0px;
+    float: top;
+} 
+#login-box {
+    width: 50%;
+    float: right;
+    float: bottom;
+}
+#register-box {
+    width: 50%;
+    float: left;
+} 
+#add_game {
+    width: 50%;
+    float: right;
+}
+#add_class {
+    width: 50%;
+    float: left;
+} 
+.display-4 {
+    float: right;
+    font-size: 25px; 
 }
 #myGames-box {
-    width: 400px;
-    height: 240px;
-    left: 100px;
-    top: 384px;
+    width: 100%;
 }
-img {
-    width: 200px;
+.twitch_name {
+    padding: 10px;
+    margin-top: 5px;
 }
+.mr-3 {
+    width: 300px;
+}
+/* .container-hot {
+    width: 970px;
+    position: relative;
+    margin: auto;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+}
+body {
+    max-width: 970px;
+} */
