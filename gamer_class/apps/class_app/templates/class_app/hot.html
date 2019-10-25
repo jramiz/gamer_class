@@ -13,6 +13,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <title>Hot</title>
+  <style>
+    
+    .message_on_wall{
+        
+        font-size: 40px;
+    }
+  
+  
+</style>
 </head>
 <body>
     <div class = "container-hot">
@@ -43,10 +52,81 @@
                 {% csrf_token %}
                 <textarea type='text' class=
                 'text-primary' name="message" cols='50'rows="5"></textarea>
+                <br>
                 <input type="file" name='image'>
                 <button class="btn btn-light post" type="submit">POST</button>
             </form>
         </div>
+        <br>
+        <!-- <div class="media">
+                {% for m in messages %}
+                {% if m %}
+                <div class="wallmessage">
+                    <img class="mr-3" src="{{ m.image.url }}" alt="User Image">
+                    <p>{{user.user_name}} posted on {{m.created_at}}</p>
+                    <div id="indent"></div>
+                    <p class="message_on_wall text-primary">{{m.message}}</p>
+                    <a class="btn btn-light btn-sm delete" href="/delete_message/{{m.id}}" type="button">DELETE</a>
+                    <form action="/post_comment" method="POST">
+                        {% csrf_token %}
+                        <textarea name="comment" cols='40'rows="4"></textarea>
+                        <input type="hidden" name="message_id" value="{{m.id}}">
+                        <br>
+                        <button class="btn btn-light post" type="submit">COMMENT</button>
+                    </form>
+                </div>
+                    {% if m.comments %}
+                    {% for c in m.comments.all %}
+                        {% if c %}
+                        <div class="allcomments">
+                        <h6>{{c.user.user_name}} posted on {{c.created_at}}</h6>
+                        <p class="text-white display-4"> {{c.comment}}</p>
+                        <a class="btn btn-light btn-sm delete" href="/delete_comment/{{c.id}}" type="button">DELETE</a>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+            </div>    -->
+            {% for m in messages %}
+            {% if m %}
+            <div>
+                <div>
+                        <img src="{{ m.image.url }}" style="width: 750px;" alt="Generic placeholder image">
+                      <h5 class="text-primary mt-0">{{m.message}}</h5>
+                      <small class="text-white">{{user.user_name}} posted on {{m.created_at}}</small>
+                      <a class="btn btn-light btn-sm delete" href="/delete_message/{{m.id}}" type="button">DELETE</a>
+                        <form action="/post_comment" method="POST">
+                            {% csrf_token %}
+                            <textarea name="comment" cols='40'rows="4"></textarea>
+                            <input type="hidden" name="message_id" value="{{m.id}}">
+                            <br>
+                            <button class="btn btn-light post" type="submit">COMMENT</button>
+                        </form>
+                        {% if m.comments %}
+                        {% for c in m.comments.all %}
+                            {% if c %}
+                      <div class="indent">
+                        <div>
+                          <h5 class="text-primary mt-0">{{c.comment}}</h5>
+                          <small class="text-white">{{user.user_name}} posted on {{m.created_at}}</small>
+                          <a class="btn btn-light btn-sm delete" href="/delete_comment/{{c.id}}" type="button">DELETE</a>
+                        </div>
+                      </div>
+                    </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+        </div>
+    </body>
+    </html>
+    
 
 <!-- 
         <div class = "display_message"> 
@@ -78,7 +158,7 @@
     <!-- </div>
 </body>
 </html> -->
-
+<!-- 
         <div class="media">
             {% for m in messages %}
             <img class="mr-3" src="{{ m.image.url }}" alt="User Image">
@@ -112,7 +192,7 @@
         </div>
     </div>
 </body>
-</html>
+</html> -->
 
       <!-- <div class="media">
             <img class="mr-3" src="..." alt="Generic placeholder image">

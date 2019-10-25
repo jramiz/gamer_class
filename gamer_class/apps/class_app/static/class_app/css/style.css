@@ -40,6 +40,19 @@
 .mr-3 {
     width: 300px;
 }
+#spacer{
+    width: 702px;
+    height: 20px;
+    display: inline-block;
+}
+#indent{
+    width: 40px;
+    height: 100%;
+    display: inline-block;
+}
+.indent {
+    margin-left: 50px;
+}
 /* .container-hot {
     width: 970px;
     position: relative;
@@ -51,4 +64,4 @@
 }
 body {
     max-width: 970px;
-} */
+} *

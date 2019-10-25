@@ -76,11 +76,11 @@
                 <tbody>
                     {% for g in user.gamer_classes.all %}
                     <tr>
-                        <th class="text-danger" scope="row">{{ g.game.name }}</th>
-                        <td class="text-primary">{{ g.level }}</td>
-                        <td class="text-primary">{{ g.income }}</td>
-                        <td class="text-primary">{{ g.style }}</td>
-                        <td class="text-primary">{{ g.gamer_class}}</td>
+                        <th class="text-black" scope="row">{{ g.game.name }}</th>
+                        <td class="text-black">{{ g.level }}</td>
+                        <td class="text-black">{{ g.income }}</td>
+                        <td class="text-black">{{ g.style }}</td>
+                        <td class="text-black">{{ g.gamer_class}}</td>
                         <td><a class="text-primary edit" id="edit_class" gamer_id="{{g.id}}" href="#">Edit</a> / <a class="text-primary delete" href="/class/delete/{{g.id}}">Delete</a></td>
                     </tr>
                     {% endfor %}
@@ -114,7 +114,7 @@
                 </form>
             </div>
             {% endfor %}
-        </div>
+        </div>       
     </div>
 </body>
 

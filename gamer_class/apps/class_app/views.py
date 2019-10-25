@@ -84,7 +84,7 @@ def edit_class(request):
     return redirect("/class_list")
 
 def delete(request, gamer_id):
-    deleted_gamer = Game.objects.get(id='gamer_id')
+    deleted_gamer = Gamer.objects.get(id=gamer_id)
     deleted_gamer.delete()
     return redirect ("/class_list")
 
